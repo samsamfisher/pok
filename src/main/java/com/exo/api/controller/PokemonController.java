@@ -31,13 +31,13 @@ public class PokemonController {
         return pokemonRepository.findByName(name);
     }
 
-    @PutMapping("/pokemons/update/{name}")
-    public Pokemon updatePokemon(@PathVariable String name, @RequestBody Pokemon pokemon) {
-        Pokemon upPokemon = pokemonRepository.findByName(name);
-        upPokemon.setName(pokemon.getName());
-        pokemonRepository.save(pokemon);
-        return upPokemon;
-    }    
+    @PutMapping("/pokemons/{id}/profil")
+    public Pokemon UpdatePokemon(@PathVariable Long id, @RequestBody Pokemon pokemon) {
+        Pokemon pokemonToUpdate = pokemonRepository.findById(id).get();
+        pokemonToUpdate.setName(pokemon.getName());
+        pokemonToUpdate.setType(pokemon.getType());
+        return pokemonRepository.save(pokemonToUpdate);
+    }  
 
     @DeleteMapping("/pokemons/{id}") //api/users/:usersId DELETE supprime un utilisateur
         public boolean deletePokemon(@PathVariable Long id){
